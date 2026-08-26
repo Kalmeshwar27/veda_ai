@@ -9,6 +9,7 @@ import {
   Settings,
   PanelLeft,
   Sparkles,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -21,16 +22,16 @@ const navItems = [
   { label: "My Library", icon: PieChart },
 ];
 
-export function Sidebar() {
+function SidebarContent({ onCloseClick }: { onCloseClick?: () => void }) {
   const activeItem = "Exams";
 
   return (
-    <aside className="flex h-screen w-[260px] flex-col justify-between border-r border-border-dashed bg-white px-4 py-5">
+    <div className="flex h-full flex-col justify-between px-4 py-5">
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between px-1">
           <div className="flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-dark text-white overflow-hidden">
-            <Image
+              <Image
                 src="/images/v.svg"
                 alt="VedaAI logo"
                 width={36}
@@ -42,10 +43,11 @@ export function Sidebar() {
           </div>
           <button
             type="button"
-            aria-label="Toggle sidebar"
+            aria-label={onCloseClick ? "Close menu" : "Toggle sidebar"}
+            onClick={onCloseClick}
             className="flex h-8 w-8 items-center justify-center rounded-md text-neutral-500 hover:bg-surface-muted"
           >
-            <PanelLeft className="h-4 w-4" />
+            {onCloseClick ? <X className="h-4 w-4" /> : <PanelLeft className="h-4 w-4" />}
           </button>
         </div>
 
@@ -90,24 +92,66 @@ export function Sidebar() {
         </button>
 
         <div className="flex items-center gap-3 rounded-xl bg-surface-muted p-3">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white">
-          <Image
-            src="/images/school.svg"
-            alt="Delhi Public School logo"
-            width={70}
-            height={70}
-            className="object-contain"
-          />
-        </div>
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white">
+            <Image
+              src="/images/school.svg"
+              alt="Delhi Public School logo"
+              width={70}
+              height={70}
+              className="object-contain"
+            />
+          </div>
 
-        <div className="flex flex-col leading-tight">
-          <span className="font-bricolage text-sm font-semibold text-neutral-900">
-            Delhi Public School
-          </span>
-          <span className="text-xs text-neutral-500">Bokaro Steel City</span>
+          <div className="flex flex-col leading-tight">
+            <span className="font-bricolage text-sm font-semibold text-neutral-900">
+              Delhi Public School
+            </span>
+            <span className="text-xs text-neutral-500">Bokaro Steel City</span>
+          </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+export function Sidebar({
+  isMobileOpen = false,
+  onMobileClose,
+}: {
+  isMobileOpen?: boolean;
+  onMobileClose?: () => void;
+}) {
+  return (
+    <>
+      {/* Desktop sidebar — untouched */}
+      <aside className="hidden h-screen w-[260px] shrink-0 border-r border-border-dashed bg-white md:block">
+        <SidebarContent />
+      </aside>
+
+      {/* Mobile drawer */}
+      <div
+        className={cn(
+          "fixed inset-0 z-50 md:hidden",
+          isMobileOpen ? "pointer-events-auto" : "pointer-events-none"
+        )}
+        aria-hidden={!isMobileOpen}
+      >
+        <div
+          onClick={onMobileClose}
+          className={cn(
+            "absolute inset-0 bg-black/40 transition-opacity duration-200",
+            isMobileOpen ? "opacity-100" : "opacity-0"
+          )}
+        />
+        <aside
+          className={cn(
+            "absolute left-0 top-0 h-full w-[260px] max-w-[80%] bg-white shadow-xl transition-transform duration-200",
+            isMobileOpen ? "translate-x-0" : "-translate-x-full"
+          )}
+        >
+          <SidebarContent onCloseClick={onMobileClose} />
+        </aside>
       </div>
-    </aside>
+    </>
   );
 }

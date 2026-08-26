@@ -52,19 +52,22 @@ export function UploadScreen() {
   };
 
   return (
-    <div className="mx-auto flex h-screen max-w-3xl flex-col items-center justify-center gap-4 overflow-hidden py-4">
-      <div className="flex flex-col items-center gap-3 text-center">
-        <span className="relative inline-flex items-center justify-center px-5 py-2">
-          <Image
-            src="/images/upload-frame.svg"
-            alt="frame"
-            width={850}
-            height={600}
-          />
-        </span>
+    <div className="mx-auto flex h-dvh w-full max-w-3xl flex-col items-center justify-center gap-3 overflow-hidden px-4 py-3 md:h-screen md:gap-4 md:px-0 md:py-4">
+
+      {/* Heading — plain black text on mobile, no top space */}
+      <div className="flex w-full flex-col items-center gap-1 text-center">
+        <h1 className="font-bricolage text-lg font-bold text-brand-dark sm:text-2xl md:text-3xl">
+          Upload{" "}
+          <span className="rounded-full bg-brand-orange-soft px-3 py-0.5 text-brand-dark md:text-brand-orange">
+            Question Paper &amp; Answer Sheets
+          </span>
+        </h1>
+        <p className="font-bricolage text-xs text-neutral-500 sm:text-m">
+          Upload both files to get started
+        </p>
       </div>
 
-      <div className="relative h-40 w-40">
+      <div className="relative h-20 w-20 shrink-0 sm:h-28 sm:w-28 md:h-40 md:w-40">
         <Image
           src="/images/upload-illustration.svg"
           alt="Upload illustration"
@@ -74,7 +77,7 @@ export function UploadScreen() {
         />
       </div>
 
-      <div className="grid w-full grid-cols-1 gap-4 rounded-[28px] bg-neutral-100 p-3 sm:grid-cols-2">
+      <div className="grid w-full grid-cols-1 gap-3 rounded-[28px] bg-neutral-100 p-2.5 sm:grid-cols-2 sm:gap-4 sm:p-3">
         <UploadCard
           label="Question Paper"
           uploaded={questionPaper}
@@ -89,13 +92,13 @@ export function UploadScreen() {
         />
       </div>
 
-      <div className="font-bricolage flex flex-col items-center gap-2">
+      <div className="font-bricolage flex shrink-0 flex-col items-center gap-1.5">
         <button
           type="button"
           disabled={!bothUploaded}
           onClick={handleStartMapping}
           className={cn(
-            "flex items-center gap-2 rounded-full px-6 py-2.5 text-s font-semibold transition-colors",
+            "flex items-center gap-2 rounded-full px-6 py-2 text-s font-semibold transition-colors sm:py-2.5",
             bothUploaded
               ? "bg-brand-dark text-white hover:opacity-90"
               : "cursor-not-allowed bg-neutral-400 text-white"
@@ -104,7 +107,7 @@ export function UploadScreen() {
           Start Mapping
           <ArrowRight className="h-4 w-4" />
         </button>
-        <p className="font-bricolage text-m text-neutral-500">
+        <p className="font-bricolage px-4 text-center text-xs text-neutral-500 sm:text-m">
           Once both files are uploaded, you&apos;ll be able to map answers with questions
         </p>
       </div>
@@ -129,7 +132,7 @@ function UploadCard({
         if (!uploaded) inputRef.current?.click();
       }}
       className={cn(
-        "flex flex-col items-center gap-3 rounded-2xl border-2 border-dashed border-border-dashed bg-white px-6 py-8 text-center",
+        "flex flex-col items-center gap-2 rounded-2xl border-2 border-dashed border-border-dashed bg-white px-4 py-5 text-center sm:gap-3 sm:px-6 sm:py-8",
         !uploaded && "cursor-pointer hover:border-brand-orange/40"
       )}
     >
@@ -150,13 +153,13 @@ function UploadCard({
         />
       ) : (
         <>
-          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-icon-bg text-neutral-800">
-            <Upload className="h-5 w-5" />
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-icon-bg text-neutral-800 sm:h-12 sm:w-12">
+            <Upload className="h-4 w-4 sm:h-5 sm:w-5" />
           </span>
-          <span className="font-bricolage text-m font-semibold text-neutral-900">
+          <span className="font-bricolage text-s font-semibold text-neutral-900 sm:text-m">
             Upload <span className="text-brand-orange">{label}</span>
           </span>
-          <span className="font-bricolage text-m text-neutral-400">Max 10MB</span>
+          <span className="font-bricolage text-xs text-neutral-400 sm:text-m">Max 10MB</span>
         </>
       )}
     </div>
