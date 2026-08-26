@@ -2,8 +2,64 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, AlertCircle } from "lucide-react";
+import { Sparkle, AlertCircle } from "lucide-react";
 import { useAppStore } from "@/lib/store";
+
+const twinkleTransition = (delay: number) => ({
+  duration: 1.4,
+  repeat: Infinity,
+  repeatType: "mirror" as const,
+  ease: "easeInOut" as const,
+  delay,
+});
+
+function SparkleCluster() {
+  return (
+    <div className="relative h-28 w-28">
+      <motion.div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        animate={{ scale: [0.85, 1, 0.85], opacity: [0.7, 1, 0.7] }}
+        transition={twinkleTransition(0)}
+      >
+        <Sparkle
+          className="h-16 w-16 text-brand-orange"
+          fill="currentColor"
+          strokeWidth={0}
+        />
+      </motion.div>
+
+      <motion.div
+        className="absolute bottom-2 left-1"
+        animate={{ scale: [0.7, 1, 0.7], opacity: [0.5, 1, 0.5] }}
+        transition={twinkleTransition(0.35)}
+      >
+        <Sparkle
+          className="h-8 w-8 text-brand-orange"
+          fill="currentColor"
+          strokeWidth={0}
+        />
+      </motion.div>
+
+      <motion.div
+        className="absolute right-0 top-3"
+        animate={{ scale: [0.6, 1, 0.6], opacity: [0.4, 1, 0.4] }}
+        transition={twinkleTransition(0.7)}
+      >
+        <Sparkle
+          className="h-5 w-5 text-brand-orange"
+          fill="currentColor"
+          strokeWidth={0}
+        />
+      </motion.div>
+
+      <motion.div
+        className="absolute left-2 top-6 h-2 w-2 rounded-full bg-brand-orange"
+        animate={{ scale: [0.5, 1, 0.5], opacity: [0.4, 1, 0.4] }}
+        transition={twinkleTransition(1.05)}
+      />
+    </div>
+  );
+}
 
 export function ProcessingScreen() {
   const questionPaperFile = useAppStore((state) => state.questionPaperFile);
@@ -94,13 +150,8 @@ export function ProcessingScreen() {
   }
 
   return (
-    <div className="flex h-full flex-col items-center justify-center gap-4">
-      <motion.div
-        animate={{ scale: [1, 1.15, 1], opacity: [0.85, 1, 0.85] }}
-        transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <Sparkles className="h-16 w-16 text-brand-orange" strokeWidth={1.5} fill="currentColor" />
-      </motion.div>
+    <div className="flex h-full flex-col items-center justify-center gap-2">
+      <SparkleCluster />
 
       <div className="flex flex-col items-center gap-1 text-center">
         <span className="text-lg font-bold text-neutral-900">Extracting...</span>
