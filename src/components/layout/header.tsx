@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import {
   ArrowLeft,
   Clipboard,
@@ -7,7 +8,6 @@ import {
   Bell,
   Sparkles,
   ChevronDown,
-  CircleUserRound,
   Menu,
 } from "lucide-react";
 
@@ -39,8 +39,13 @@ export function Header({ onMenuClick }: { onMenuClick?: () => void }) {
             <span className="absolute right-1 top-0.5 h-1.5 w-1.5 rounded-full bg-brand-orange" />
           </button>
 
-          <div className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-surface-muted text-neutral-500">
-            <CircleUserRound className="h-5 w-5" />
+          <div className="relative flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-surface-muted">
+            <Image
+              src="/avatar.jpg"
+              alt="Kalmeshwar Birje"
+              fill
+              className="object-cover"
+            />
           </div>
 
           <button
@@ -97,11 +102,16 @@ export function Header({ onMenuClick }: { onMenuClick?: () => void }) {
           </button>
 
           <button type="button" className="flex items-center gap-2 pl-1">
-            <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-surface-muted text-neutral-500">
-              <CircleUserRound className="h-6 w-6" />
+            <div className="relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-surface-muted">
+              <Image
+                src="/images/avatar.png"
+                alt="Kalmeshwar Birje"
+                fill
+                className="object-cover"
+              />
             </div>
             <span className="text-sm font-semibold text-neutral-900">
-              Madhur Rastogi
+              Kalmeshwar Birje
             </span>
             <ChevronDown className="h-4 w-4 text-neutral-500" />
           </button>
