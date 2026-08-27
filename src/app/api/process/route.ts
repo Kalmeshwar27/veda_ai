@@ -3,6 +3,7 @@ import { extractQuestions } from "@/lib/question-extraction";
 import { extractAnswers } from "@/lib/answer-extraction";
 import { mapAnswersToQuestions } from "@/lib/answer-mapping";
 import { gradeAnswers } from "@/lib/grading";
+import { classifyError } from "@/lib/api-error";
 
 export async function POST(request: NextRequest) {
   const formData = await request.formData();
@@ -32,7 +33,8 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ questions, answers, mapped, grades, summary });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Processing failed";
-    return NextResponse.json({ error: message }, { status: 500 });
+    console.error("Processing error:", error);
+    const { status, message } = classifyError(error);
+    return NextResponse.json({ error: message }, { status });
   }
 }
