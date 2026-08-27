@@ -18,3 +18,9 @@ export type QuestionGrade = {
   status: GradeStatus;
   feedback: string;
 };
+
+export type GradingSummary = {
+  totalObtained: number;
+  totalMax: number;
+  summary: string;
+};

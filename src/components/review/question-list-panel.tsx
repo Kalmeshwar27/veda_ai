@@ -7,6 +7,7 @@ import { QuestionCard } from "@/components/review/question-card";
 export function QuestionListPanel() {
   const questions = useAppStore((state) => state.questions);
   const grades = useAppStore((state) => state.grades);
+  const summary = useAppStore((state) => state.summary);
   const selectedQuestionId = useAppStore((state) => state.selectedQuestionId);
   const setSelectedQuestionId = useAppStore((state) => state.setSelectedQuestionId);
 
@@ -49,6 +50,17 @@ export function QuestionListPanel() {
           {allExpanded ? "Collapse All" : "Expand All"}
         </button>
       </div>
+
+      {summary && (
+        <div className="flex items-center justify-between border-b border-border-dashed bg-surface-muted px-4 py-3">
+          <div>
+            <p className="text-sm font-semibold text-neutral-900">
+              Total Score: {summary.totalObtained}/{summary.totalMax}
+            </p>
+            <p className="mt-0.5 text-xs text-neutral-500">{summary.summary}</p>
+          </div>
+        </div>
+      )}
 
       <div className="flex-1 space-y-2 overflow-y-auto p-3">
         {questions.map((question) => (

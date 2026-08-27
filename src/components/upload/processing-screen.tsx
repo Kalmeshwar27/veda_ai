@@ -72,47 +72,46 @@ export function ProcessingScreen() {
   const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
-    if (!questionPaperFile || !answerSheetFile) {
-      setProcessingError("Missing question paper or answer sheet file");
-      return;
-    }
+  if (!questionPaperFile || !answerSheetFile) {
+    setProcessingError("Missing question paper or answer sheet file");
+    return;
+  }
 
-    let cancelled = false;
-    setProcessingError(null);
+  const controller = new AbortController();
+  setProcessingError(null);
 
-    const run = async () => {
-      try {
-        const formData = new FormData();
-        formData.append("questionPaper", questionPaperFile);
-        formData.append("answerSheet", answerSheetFile);
+  const run = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("questionPaper", questionPaperFile);
+      formData.append("answerSheet", answerSheetFile);
 
-        const response = await fetch("/api/process", {
-          method: "POST",
-          body: formData,
-        });
+      const response = await fetch("/api/process", {
+        method: "POST",
+        body: formData,
+        signal: controller.signal,
+      });
 
-        const data = await response.json();
+      const data = await response.json();
 
-        if (!response.ok) {
-          throw new Error(data.error ?? "Processing failed");
-        }
-
-        if (cancelled) return;
-
-        setProcessingResult(data.questions, data.mapped);
-        setScreen("review");
-      } catch (error) {
-        if (cancelled) return;
-        const message = error instanceof Error ? error.message : "Processing failed";
-        setProcessingError(message);
+      if (!response.ok) {
+        throw new Error(data.error ?? "Processing failed");
       }
-    };
 
-    run();
+      setProcessingResult(data.questions, data.mapped, data.grades, data.summary);
+      setScreen("review");
+    } catch (error) {
+      if (controller.signal.aborted) return;
+      const message = error instanceof Error ? error.message : "Processing failed";
+      setProcessingError(message);
+    }
+  };
 
-    return () => {
-      cancelled = true;
-    };
+  run();
+
+  return () => {
+    controller.abort();
+  };
   }, [questionPaperFile, answerSheetFile, attempt, setProcessingResult, setScreen, setProcessingError]);
 
   if (processingError) {
