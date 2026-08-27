@@ -52,13 +52,12 @@ export function UploadScreen() {
   };
 
   return (
-    <div className="mx-auto flex h-dvh w-full max-w-3xl flex-col items-center justify-center gap-3 overflow-hidden px-4 py-3 md:h-screen md:gap-4 md:px-0 md:py-4">
+    <div className="mx-auto flex w-full max-w-3xl flex-col items-center justify-start gap-3 overflow-hidden px-4 pt-6 pb-3 md:gap-4 md:px-0 md:pt-10 md:pb-4">
 
-      {/* Heading — plain black text on mobile, no top space */}
       <div className="flex w-full flex-col items-center gap-1 text-center">
         <h1 className="font-bricolage text-lg font-bold text-brand-dark sm:text-2xl md:text-3xl">
           Upload{" "}
-          <span className="rounded-full bg-brand-orange-soft px-3 py-0.5 text-brand-dark md:text-brand-orange">
+        <span className="rounded-full bg-transparent px-3 py-0.5 text-brand-dark md:bg-brand-orange-soft md:text-brand-orange">
             Question Paper &amp; Answer Sheets
           </span>
         </h1>
@@ -98,7 +97,7 @@ export function UploadScreen() {
           disabled={!bothUploaded}
           onClick={handleStartMapping}
           className={cn(
-            "flex items-center gap-2 rounded-full px-6 py-2 text-s font-semibold transition-colors sm:py-2.5",
+            "flex items-center gap-2 rounded-full px-6 py-2 text-sm font-semibold transition-colors sm:py-2.5",
             bothUploaded
               ? "bg-brand-dark text-white hover:opacity-90"
               : "cursor-not-allowed bg-neutral-400 text-white"
@@ -107,7 +106,7 @@ export function UploadScreen() {
           Start Mapping
           <ArrowRight className="h-4 w-4" />
         </button>
-        <p className="font-bricolage px-4 text-center text-xs text-neutral-500 sm:text-m">
+        <p className="font-bricolage px-4 text-center text-xs text-neutral-500 sm:text-sm">
           Once both files are uploaded, you&apos;ll be able to map answers with questions
         </p>
       </div>

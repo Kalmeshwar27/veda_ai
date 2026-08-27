@@ -13,7 +13,7 @@ import {
 
 export function Header({ onMenuClick }: { onMenuClick?: () => void }) {
   return (
-    <header className="mx-2 mt-2 flex h-16 items-center justify-between rounded-2xl border border-border-dashed bg-white px-4 shadow-sm md:mx-0 md:mt-0 md:rounded-none md:border-b md:border-x-0 md:border-t-0 md:shadow-none md:px-6">
+    <header className="mx-2 mt-1 flex h-16 items-center justify-between rounded-2xl border border-border-dashed bg-white px-4 shadow-sm md:mr-2 md:px-6 relative z-10">
       {/* Mobile header */}
       <div className="flex w-full items-center justify-between md:hidden">
         <div className="flex items-center gap-2">
@@ -41,7 +41,7 @@ export function Header({ onMenuClick }: { onMenuClick?: () => void }) {
 
           <div className="relative flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-surface-muted">
             <Image
-              src="/avatar.jpg"
+              src="/images/avatar.png"
               alt="Kalmeshwar Birje"
               fill
               className="object-cover"
@@ -59,7 +59,7 @@ export function Header({ onMenuClick }: { onMenuClick?: () => void }) {
         </div>
       </div>
 
-      {/* Desktop header — unchanged */}
+      {/* Desktop header */}
       <div className="hidden w-full items-center justify-between md:flex">
         <div className="flex items-center gap-3">
           <button
@@ -96,9 +96,9 @@ export function Header({ onMenuClick }: { onMenuClick?: () => void }) {
           <button
             type="button"
             aria-label="AI assistant"
-            className="flex h-9 w-9 items-center justify-center text-neutral-800 hover:opacity-70"
+            className="flex h-9 w-9 items-center justify-center text-brand-black hover:opacity-70"
           >
-            <Sparkles className="h-4 w-4" />
+            <Sparkles className="h-4 w-4" fill="currentColor" strokeWidth={0} />
           </button>
 
           <button type="button" className="flex items-center gap-2 pl-1">

@@ -30,7 +30,7 @@ function SidebarContent({ onCloseClick }: { onCloseClick?: () => void }) {
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between px-1">
           <div className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-dark text-white overflow-hidden">
+            <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg bg-brand-dark text-white">
               <Image
                 src="/images/v.svg"
                 alt="VedaAI logo"
@@ -123,12 +123,12 @@ export function Sidebar({
 }) {
   return (
     <>
-      {/* Desktop sidebar — untouched */}
-      <aside className="hidden h-screen w-[260px] shrink-0 border-r border-border-dashed bg-white md:block">
+      {/* Desktop sidebar — now a rounded floating panel */}
+      <aside className="hidden h-[calc(100vh-1rem)] w-[260px] shrink-0 rounded-2xl border border-border-dashed bg-white shadow-sm md:my-2 md:ml-2 md:block">
         <SidebarContent />
       </aside>
 
-      {/* Mobile drawer */}
+      {/* Mobile drawer — unchanged */}
       <div
         className={cn(
           "fixed inset-0 z-50 md:hidden",

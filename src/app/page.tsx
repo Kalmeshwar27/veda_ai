@@ -13,7 +13,7 @@ export default function Home() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen bg-neutral-200">
       <Sidebar
         isMobileOpen={mobileNavOpen}
         onMobileClose={() => setMobileNavOpen(false)}
