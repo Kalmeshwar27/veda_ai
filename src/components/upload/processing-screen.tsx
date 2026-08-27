@@ -154,8 +154,8 @@ export function ProcessingScreen() {
       <SparkleCluster />
 
       <div className="flex flex-col items-center gap-1 text-center">
-        <span className="text-lg font-bold text-neutral-900">Extracting...</span>
-        <span className="text-sm text-neutral-500">This may take a while</span>
+        <span className="font-bricolage text-lg font-bold text-neutral-900">Extracting...</span>
+        <span className="font-bricolage text-sm text-neutral-500">This may take a while</span>
       </div>
     </div>
   );
